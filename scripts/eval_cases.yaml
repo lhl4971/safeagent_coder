@@ -1,0 +1,63 @@
+# ASB Evaluation Test Suite
+# ========================
+# Defines the full battery of experiments to run.
+# Each entry specifies a defense strategy, injection mode, and attack range.
+#
+#   benign: true  → runs benign tasks (no attacker, measures PNA via task_ok);
+#                    attack_start / attack_end are ignored.
+#   benign: false → runs attack tests with the specified injection types.
+#
+# SafeAgent cases automatically use the safeagent eval script (MCP-based);
+# all others use the standard eval script (direct LangChain).
+
+cases:
+
+  # ============ Attack tests ============
+
+  - defense: baseline
+    injections: [IPI, DPI, MP]
+    benign: false
+    attack_start: 0
+    attack_end: 39
+    output: outputs/asb_results_baseline.csv
+
+  - defense: llama_guard
+    injections: [IPI, DPI, MP]
+    benign: false
+    attack_start: 0
+    attack_end: 39
+    output: outputs/asb_results_llama_guard.csv
+
+  - defense: llm_guard
+    injections: [IPI, DPI, MP]
+    benign: false
+    attack_start: 0
+    attack_end: 39
+    output: outputs/asb_results_llm_guard.csv
+
+  - defense: safeagent
+    injections: [IPI, DPI, MP]
+    benign: false
+    attack_start: 0
+    attack_end: 39
+    output: outputs/asb_results_safe_IPI.csv
+    mcp_url: http://127.0.0.1:8000/mcp
+
+  # ============ Benign (PNA) tests ============
+
+  - defense: baseline
+    benign: true
+    output: outputs/asb_results_baseline_benign.csv
+
+  - defense: llama_guard
+    benign: true
+    output: outputs/asb_results_llama_guard_benign.csv
+
+  - defense: llm_guard
+    benign: true
+    output: outputs/asb_results_llm_guard_benign.csv
+
+  - defense: safeagent
+    benign: true
+    output: outputs/asb_results_safe_benign.csv
+    mcp_url: http://127.0.0.1:8000/mcp
