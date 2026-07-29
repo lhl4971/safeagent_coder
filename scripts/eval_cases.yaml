@@ -61,3 +61,36 @@ cases:
     benign: true
     output: outputs/asb_results_safe_benign.csv
     mcp_url: http://127.0.0.1:8000/mcp
+
+  # ============ InjecAgent ============
+
+  - suite: injecagent
+    mode: baseline
+    scenario: dh
+    variant: base
+    output: outputs/injecagent_dh_base_baseline.csv
+
+  - suite: injecagent
+    mode: baseline
+    scenario: ds
+    variant: base
+    output: outputs/injecagent_ds_base_baseline.csv
+
+  - suite: injecagent
+    mode: llama_guard
+    scenario: ds
+    variant: base
+    output: outputs/injecagent_ds_base_llama_guard.csv
+
+  - suite: injecagent
+    mode: llm_guard
+    scenario: ds
+    variant: base
+    output: outputs/injecagent_ds_base_llm_guard.csv
+
+  - suite: injecagent
+    mode: safeagent
+    scenario: ds
+    variant: base
+    output: outputs/injecagent_ds_base_safeagent.csv
+    mcp_url: http://127.0.0.1:8000/mcp

@@ -67,9 +67,12 @@ def build_command(case: Dict[str, Any]) -> List[str]:
     cmd = [
         sys.executable,
         str(script),
-        "--defense", defense,
         "--output", output,
     ]
+
+    # Only eval_standard.py has a --defense argument
+    if not is_safeagent(defense):
+        cmd.extend(["--defense", defense])
 
     if benign:
         cmd.append("--benign")
@@ -116,8 +119,10 @@ def run_case(case: Dict[str, Any], dry_run: bool = False) -> int:
     if dry_run:
         return 0
 
-    env = {**PROJECT_ROOT, "PYTHONPATH": str(PROJECT_ROOT)}
-    result = subprocess.run(cmd, cwd=PROJECT_ROOT, env={**dict(env)})
+    import os
+
+    env = {**os.environ, "PYTHONPATH": str(PROJECT_ROOT)}
+    result = subprocess.run(cmd, cwd=PROJECT_ROOT, env=env)
     return result.returncode
 
 

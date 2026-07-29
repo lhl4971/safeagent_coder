@@ -365,7 +365,7 @@ async def run_evaluation(
 
     if not jobs:
         print("[eval] All tasks already completed. Nothing to do.")
-        client.__exit__(None, None, None)
+        # MCP client is external; do not close it
         return
 
     # --- execution ---
@@ -440,7 +440,7 @@ async def run_evaluation(
             tqdm.write(f"[FATAL] unexpected: {type(e).__name__}: {e}")
 
     pbar.close()
-    client.__exit__(None, None, None)
+    # MCP client is external; do not close it
 
     # --- summary ---
     total = len(jobs)
